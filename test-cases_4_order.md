@@ -31,7 +31,7 @@ https://www.saucedemo.com/v1/checkout-complete.html
 ### test-case: 4.2  
 ## Оформление пустого заказа  
 Оформление заказа без добавления товаров  
-#### Test:  
+#### Test: DEFECT FOUND  
 test_4_order.py::  
 test_negative_empty_order  
 #### Предусловие:  
