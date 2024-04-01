@@ -1,7 +1,6 @@
 import pytest
 from locators import *
 from data import *
-import time
 
 
 # case 1.1

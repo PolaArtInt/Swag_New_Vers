@@ -1,5 +1,4 @@
 import pytest
-import time
 from data import *
 from locators import *
 
@@ -10,7 +9,6 @@ def standard_auth(browser):
     browser.find_element('xpath', input_user).send_keys(user)
     browser.find_element('xpath', input_pass).send_keys(pass_word)
     browser.find_element('xpath', login_btn).click()
-    time.sleep(2)
     yield standard_auth
 
 
@@ -20,6 +18,23 @@ def problem_auth(browser):
     browser.find_element('xpath', input_user).send_keys(problem_user)
     browser.find_element('xpath', input_pass).send_keys(pass_word)
     browser.find_element('xpath', login_btn).click()
-    time.sleep(2)
     yield problem_auth
+
+
+@pytest.fixture()
+def locked_out_auth(browser):
+    browser.get(url)
+    browser.find_element('xpath', input_user).send_keys(locked_user)
+    browser.find_element('xpath', input_pass).send_keys(pass_word)
+    browser.find_element('xpath', login_btn).click()
+    yield locked_out_auth
+
+
+@pytest.fixture()
+def glitch_auth(browser):
+    browser.get(url)
+    browser.find_element('xpath', input_user).send_keys(glitch_user)
+    browser.find_element('xpath', input_pass).send_keys(pass_word)
+    browser.find_element('xpath', login_btn).click()
+    yield glitch_auth
 

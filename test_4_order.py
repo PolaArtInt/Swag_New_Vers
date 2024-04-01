@@ -2,7 +2,6 @@ import pytest
 from locators import *
 from data import *
 from auth import standard_auth
-import time
 
 
 @pytest.mark.positive
