@@ -46,7 +46,6 @@ def test_remove_from_cart(browser, standard_auth):
 
     # check if cart quantity tag is missing on page:
     assert cart_tag_span2 not in browser.page_source, 'Items are not removed from cart'
-    time.sleep(2)
 
 
 @pytest.mark.positive

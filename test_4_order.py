@@ -34,7 +34,6 @@ def test_positive_order(browser, standard_auth):
 
     # check if cart is empty:
     assert cart_tag not in browser.page_source, 'Shopping cart is not empty'
-    time.sleep(2)
 
 
 @pytest.mark.xfail
@@ -61,6 +60,3 @@ def test_negative_empty_order(browser, standard_auth):
     # check url and success message:
     curr_url = browser.current_url
     assert not curr_url == checkout_url and not complete_msg, 'Shopping cart is empty, wrong checkout'
-
-    time.sleep(2)
-
