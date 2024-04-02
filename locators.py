@@ -1,26 +1,28 @@
 # auth page:
-input_user = '//input[@id="user-name"]'
-input_pass = '//input[@id="password"]'
-login_btn = '//input[@id="login-button"]'
+input_user = ('xpath', '//input[@id="user-name"]')
+input_pass = ('xpath', '//input[@id="password"]')
+login_btn = ('xpath', '//input[@id="login-button"]')
 
 locked_msg = 'Epic sadface: Sorry, this user has been locked out.'
 login_err_msg = 'Epic sadface: Username and password do not match any user in this service'
 
+index = 1
+
 # menu:
-menu_btn = '//div[@class="bm-burger-button"]//button'
-all_items_btn = '//a[@id="inventory_sidebar_link"]'
-about_btn = '//a[@id="about_sidebar_link"]'
-logout_btn = '//a[@id="logout_sidebar_link"]'
-reset_btn = '//a[@id="reset_sidebar_link"]'
-x_btn = '//div[@class="bm-cross-button"]/button'
+menu_btn = ('xpath', '//div[@class="bm-burger-button"]//button')
+all_items_btn = ('xpath', '//a[@id="inventory_sidebar_link"]')
+about_btn = ('xpath', '//a[@id="about_sidebar_link"]')
+logout_btn = ('xpath', '//a[@id="logout_sidebar_link"]')
+reset_btn = ('xpath', '//a[@id="reset_sidebar_link"]')
+x_btn = ('xpath', '//div[@class="bm-cross-button"]/button')
 
 # inventory page:
-prod_header = '//div[@class="product_label"]'
+prod_header = ('xpath', '//div[@class="product_label"]')
 
-drop_a_z = '//option[@value="az"]'
-drop_z_a = '//option[@value="za"]'
-drop_low_high = '//option[@value="lohi"]'
-drop_high_low = '//option[@value="hilo"]'
+drop_a_z = ('xpath', '//option[@value="az"]')
+drop_z_a = ('xpath', '//option[@value="za"]')
+drop_low_high = ('xpath', '//option[@value="lohi"]')
+drop_high_low = ('xpath', '//option[@value="hilo"]')
 
 item_imgs = '//img[@class="inventory_item_img"]'
 item_names = '//div[@class="inventory_item_name"]'
@@ -31,29 +33,29 @@ add_btns = '//button[@class="btn_primary btn_inventory"]'
 remove_btns = '//button[@class="btn_secondary btn_inventory"]'
 
 # item card page:
-card_add_btn = '//button[@class="btn_primary btn_inventory"]'
-card_remove_btn = '//button[@class="btn_secondary btn_inventory"]'
+card_add_btn = ('xpath', '//button[@class="btn_primary btn_inventory"]')
+card_remove_btn = ('xpath', '//button[@class="btn_secondary btn_inventory"]')
 
-card_img = '//img[@class="inventory_details_img"]'
-card_name = '//div[@class="inventory_details_name"]'
-card_desc = '//div[@class="inventory_details_desc"]'
-card_price = '//div[@class="inventory_details_price"]'
+card_img = ('xpath', '//img[@class="inventory_details_img"]')
+card_name = ('xpath', '//div[@class="inventory_details_name"]')
+card_desc = ('xpath', '//div[@class="inventory_details_desc"]')
+card_price = ('xpath', '//div[@class="inventory_details_price"]')
 
 # cart page:
-cart_header = '//div[@class="subheader"]'
-cart_btn = '//a[@class="shopping_cart_link fa-layers fa-fw"]'
-cart_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
-cart_remove_btn = '//button[@class="btn_secondary cart_button"]'
+cart_header = ('xpath', '//div[@class="subheader"]')
+cart_btn = ('xpath', '//a[@class="shopping_cart_link fa-layers fa-fw"]')
+cart_tag = ('xpath', '//a[@class="shopping_cart_link fa-layers fa-fw"]/span')
+cart_remove_btn = ('xpath', '//button[@class="btn_secondary cart_button"]')
 
 # checkout page:
-input_fname = '//input[@id="first-name"]'
-input_lname = '//input[@id="last-name"]'
-input_zipcode = '//input[@id="postal-code"]'
+input_fname = ('xpath', '//input[@id="first-name"]')
+input_lname = ('xpath', '//input[@id="last-name"]')
+input_zipcode = ('xpath', '//input[@id="postal-code"]')
 
-checkout_btn = '//a[@class="btn_action checkout_button"]'
-continue_btn = '//input[@class="btn_primary cart_button"]'
-finish_btn = '//a[@class="btn_action cart_button"]'
-cancel_btn = '//a[@class="cart_cancel_link btn_secondary"]'
+checkout_btn = ('xpath', '//a[@class="btn_action checkout_button"]')
+continue_btn = ('xpath', '//input[@class="btn_primary cart_button"]')
+finish_btn = ('xpath', '//a[@class="btn_action cart_button"]')
+cancel_btn = ('xpath', '//a[@class="cart_cancel_link btn_secondary"]')
 
 complete_msg = 'THANK YOU FOR YOUR ORDER'
 
