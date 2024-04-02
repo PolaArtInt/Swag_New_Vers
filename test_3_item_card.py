@@ -13,7 +13,7 @@ def test_click_on_item_img(browser, standard_auth):
 
     # check if url changed and we can get the same item:
     item_card_desc = browser.find_element('xpath', '//div[@class="inventory_details_desc"]').text
-    assert browser.current_url != inventory_url and \
+    assert browser.current_url != URLs.inventory_url and \
            item_desc == item_card_desc, 'Different item description or wrong url'
 
 
@@ -28,4 +28,4 @@ def test_click_on_item_title(browser, standard_auth):
 
     # check if url changed and we can get the same item:
     item_card_desc = browser.find_element('xpath', '//div[@class="inventory_details_desc"]').text
-    assert item_desc == item_card_desc and browser.current_url != url, 'Different item description or wrong url'
+    assert item_desc == item_card_desc and browser.current_url != URLs.url, 'Different item description or wrong url'

@@ -13,7 +13,7 @@ def test_positive_logout(browser, standard_auth):
     browser.find_element(*logout_btn).click()
 
     # check if we are on login page:
-    assert browser.current_url == login_url
+    assert browser.current_url == URLs.login_url
 
 
 @pytest.mark.positive
@@ -27,7 +27,7 @@ def test_positive_about_btn(browser, standard_auth):
 
     # check expected url and title:
     curr_title = browser.title
-    assert browser.current_url == about_url and \
+    assert browser.current_url == URLs.about_url and \
            curr_title == exp_title, 'Wrong page url or title'
 
 

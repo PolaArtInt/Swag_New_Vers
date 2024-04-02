@@ -72,7 +72,7 @@ def test_add_item_from_item_card(browser, standard_auth):
 
     # check if item title is the same item title and url is cart url:
     cart_item_title3 = browser.find_element('xpath', '//div[@class="inventory_item_name"]').text
-    assert cart_item_title3 == card_item_title3 and browser.current_url == cart_url, 'Wrong url or different item'
+    assert cart_item_title3 == card_item_title3 and browser.current_url == URLs.cart_url, 'Wrong url or different item'
 
     # remove item from cart:
     browser.find_element(*cart_remove_btn).click()
