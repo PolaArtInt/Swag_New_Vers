@@ -8,23 +8,23 @@ from data import *
 @pytest.mark.positive
 def test_standart_login(browser):
     browser.get(URLs.url)
-    browser.find_element(*input_user).send_keys(Auth.user)
-    browser.find_element(*input_pass).send_keys(Auth.pass_word)
-    browser.find_element(*login_btn).click()
+    browser.find_element(*AuthPage.input_user).send_keys(Auth.user)
+    browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
+    browser.find_element(*AuthPage.login_btn).click()
 
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
-    assert prod_header, 'Wrong page header'
+    assert InventoryPage.prod_header, 'Wrong page header'
 
 
 # case 1.2
 @pytest.mark.positive
 def test_auth_positive_locked_out_user(browser):
     browser.get(URLs.url)
-    browser.find_element(*input_user).send_keys(Auth.locked_user)
-    browser.find_element(*input_pass).send_keys(Auth.pass_word)
-    browser.find_element(*login_btn).click()
+    browser.find_element(*AuthPage.input_user).send_keys(Auth.locked_user)
+    browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
+    browser.find_element(*AuthPage.login_btn).click()
 
-    assert locked_msg, 'Login error'
+    assert AuthPage.locked_msg, 'Login error'
     assert browser.current_url == URLs.url, 'Wrong url'
 
 
@@ -32,9 +32,9 @@ def test_auth_positive_locked_out_user(browser):
 @pytest.mark.positive
 def test_auth_positive_problem_user(browser):
     browser.get(URLs.url)
-    browser.find_element(*input_user).send_keys(Auth.problem_user)
-    browser.find_element(*input_pass).send_keys(Auth.pass_word)
-    browser.find_element(*login_btn).click()
+    browser.find_element(*AuthPage.input_user).send_keys(Auth.problem_user)
+    browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
+    browser.find_element(*AuthPage.login_btn).click()
 
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
 
@@ -43,9 +43,9 @@ def test_auth_positive_problem_user(browser):
 @pytest.mark.slow
 def test_auth_positive_performance_glitch_user(browser):
     browser.get(URLs.url)
-    browser.find_element(*input_user).send_keys(Auth.glitch_user)
-    browser.find_element(*input_pass).send_keys(Auth.pass_word)
-    browser.find_element(*login_btn).click()
+    browser.find_element(*AuthPage.input_user).send_keys(Auth.glitch_user)
+    browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
+    browser.find_element(*AuthPage.login_btn).click()
 
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
 
@@ -54,9 +54,9 @@ def test_auth_positive_performance_glitch_user(browser):
 @pytest.mark.negative
 def test_auth_negative_wrong_login(browser):
     browser.get(URLs.url)
-    browser.find_element(*input_user).send_keys('user')
-    browser.find_element(*input_pass).send_keys('user')
-    browser.find_element(*login_btn).click()
+    browser.find_element(*AuthPage.input_user).send_keys('user')
+    browser.find_element(*AuthPage.input_pass).send_keys('user')
+    browser.find_element(*AuthPage.login_btn).click()
 
-    assert login_err_msg, 'Wrong login'
+    assert AuthPage.login_err_msg, 'Wrong login'
     assert browser.current_url == URLs.url, 'Wrong url'
