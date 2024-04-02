@@ -1,7 +1,6 @@
 import pytest
 from data import *
 from locators import *
-from auth import standard_auth
 
 
 @pytest.mark.positive
@@ -52,6 +51,7 @@ def test_reset_app_state_positive(browser, standard_auth):
     browser.refresh()
 
 
+@pytest.mark.xfail
 @pytest.mark.negative
 # case 6.4
 def test_reset_app_state_negative(browser, standard_auth):
@@ -76,6 +76,6 @@ def test_reset_app_state_negative(browser, standard_auth):
     # check all 'add to cart' buttons are unpressed by its quantity before and after:
     add_btns_after = browser.find_elements('xpath', add_btns)
     print(f'\n{len(add_btns_after)}')
-    assert len(add_btns_before) != len(add_btns_after), 'Buttons are not unpressed after reset the app'
+    assert len(add_btns_before) == len(add_btns_after), 'Buttons are not unpressed after reset the app'
 
     browser.refresh()

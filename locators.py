@@ -6,8 +6,6 @@ login_btn = ('xpath', '//input[@id="login-button"]')
 locked_msg = 'Epic sadface: Sorry, this user has been locked out.'
 login_err_msg = 'Epic sadface: Username and password do not match any user in this service'
 
-index = 1
-
 # menu:
 menu_btn = ('xpath', '//div[@class="bm-burger-button"]//button')
 all_items_btn = ('xpath', '//a[@id="inventory_sidebar_link"]')

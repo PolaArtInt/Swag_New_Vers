@@ -1,7 +1,6 @@
 import pytest
 from locators import *
 from data import *
-from auth import standard_auth
 
 
 @pytest.mark.positive
