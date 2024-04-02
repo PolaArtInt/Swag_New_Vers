@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from locators import *
 from data import *
@@ -12,18 +14,22 @@ def test_add_to_cart(browser, standard_auth):
     item_inventory = browser.find_element('xpath', '(//div[@class="inventory_item_name"])[3]').text
 
     # add item to cart:
-    browser.find_element('xpath', '(//div[@class="inventory_item_name"])[3]').click()
+    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[3]').click()
 
     # go to cart:
     browser.find_element(*cart_btn).click()
 
     # check if item picked is the same item in cart:
-    item_in_cart = 'Sauce Labs Bolt T-Shirt'
+    item_in_cart = browser.find_element('xpath', '//div[@class="inventory_item_name"]').text
 
     assert item_inventory == item_in_cart, 'Different item picked'
 
     # remove item from cart:
-    # browser.find_element(*cart_remove_btn).click()
+    browser.find_element(*cart_remove_btn).click()
+
+    # check if cart is empty:
+    cart_quantity_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
+    assert cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
 
 @pytest.mark.positive
