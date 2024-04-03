@@ -16,9 +16,9 @@ def test_positive_order(browser, standard_auth):
     browser.find_element(*CheckoutPage.checkout_btn).click()
 
     # fill a form:
-    browser.find_element(*CheckoutPage.input_fname).send_keys(PostAuth.fake_user_fname)
-    browser.find_element(*CheckoutPage.input_lname).send_keys(PostAuth.fake_user_lname)
-    browser.find_element(*CheckoutPage.input_zipcode).send_keys(PostAuth.fake_zip)
+    browser.find_element(*CheckoutPage.input_fname).send_keys(TestAuth.fake_user_fname)
+    browser.find_element(*CheckoutPage.input_lname).send_keys(TestAuth.fake_user_lname)
+    browser.find_element(*CheckoutPage.input_zipcode).send_keys(TestAuth.fake_zip)
 
     # click 'continue' button:
     browser.find_element(*CheckoutPage.continue_btn).click()
@@ -31,8 +31,7 @@ def test_positive_order(browser, standard_auth):
     assert curr_url == URLs.checkout_url and CheckoutPage.complete_msg, 'Wrong url'
 
     # check if cart is empty:
-    cart_quantity_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
-    assert cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
 
 @pytest.mark.xfail
@@ -46,9 +45,9 @@ def test_negative_empty_order(browser, standard_auth):
     browser.find_element(*CheckoutPage.checkout_btn).click()
 
     # fill a form:
-    browser.find_element(*CheckoutPage.input_fname).send_keys(PostAuth.fake_user_fname)
-    browser.find_element(*CheckoutPage.input_lname).send_keys(PostAuth.fake_user_lname)
-    browser.find_element(*CheckoutPage.input_zipcode).send_keys(PostAuth.fake_zip)
+    browser.find_element(*CheckoutPage.input_fname).send_keys(TestAuth.fake_user_fname)
+    browser.find_element(*CheckoutPage.input_lname).send_keys(TestAuth.fake_user_lname)
+    browser.find_element(*CheckoutPage.input_zipcode).send_keys(TestAuth.fake_zip)
 
     # click 'continue' button:
     browser.find_element(*CheckoutPage.continue_btn).click()

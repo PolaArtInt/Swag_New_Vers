@@ -37,6 +37,7 @@ def test_auth_positive_problem_user(browser):
     browser.find_element(*AuthPage.login_btn).click()
 
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
+    assert InventoryPage.prod_header, 'Wrong page header'
 
 
 # case 1.4
@@ -48,6 +49,7 @@ def test_auth_positive_performance_glitch_user(browser):
     browser.find_element(*AuthPage.login_btn).click()
 
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
+    assert InventoryPage.prod_header, 'Wrong page header'
 
 
 # case 1.5

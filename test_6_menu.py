@@ -12,8 +12,11 @@ def test_positive_logout(browser, standard_auth):
     # find and click 'logout' button:
     browser.find_element(*Menu.logout_btn).click()
 
-    # check if we are on login page:
-    assert browser.current_url == URLs.login_url
+    # check if we are on login page and 'Login' button appears:
+    assert browser.current_url == URLs.login_url, 'Wrong url'
+
+    log_btn_text = browser.find_element(*AuthPage.login_btn).get_attribute('value')
+    assert log_btn_text == 'LOGIN', 'Login button not found'
 
 
 @pytest.mark.positive
@@ -45,8 +48,7 @@ def test_reset_app_state_positive(browser, standard_auth):
     browser.find_element(*Menu.reset_btn).click()
 
     # check if cart is empty:
-    cart_quantity_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
-    assert cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
     browser.refresh()
 
@@ -70,8 +72,7 @@ def test_reset_app_state_negative(browser, standard_auth):
     browser.find_element(*Menu.reset_btn).click()
 
     # check if cart is empty:
-    cart_quantity_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
-    assert cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
     # check all 'add to cart' buttons are unpressed by its quantity before and after:
     add_btns_after = browser.find_elements('xpath', InventoryPage.add_btns)

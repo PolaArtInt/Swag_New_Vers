@@ -12,7 +12,7 @@ def browser():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.page_load_strategy = 'normal'
 
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--window-size=1280,800")
     # chrome_options.add_argument("--disable-cache")
@@ -23,6 +23,24 @@ def browser():
 
     yield browser
     browser.quit()
+
+
+@pytest.fixture()
+def form_conditions(browser):
+    # pre:
+    browser.get(FormData.form_url)
+    assert browser.current_url == FormData.form_url and \
+           FormData.form_header == 'Register'
+
+    name_field = browser.find_element(*FormData.form_name)
+    pass_field = browser.find_element(*FormData.form_pass)
+    assert name_field.text == '' and pass_field.text == '', 'Inputs are not blank'
+
+    # test:
+    yield form_conditions
+
+    # post:
+    browser.get(FormData.form_url)
 
 
 @pytest.fixture()

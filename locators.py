@@ -1,3 +1,12 @@
+class FormData:
+    form_url = 'https://victoretc.github.io/webelements_information/'
+    form_header = 'Register'
+    form_name = ('xpath', '//input[@id="username"]')
+    form_pass = ('xpath', '//input[@id="password"]')
+    form_check = ('xpath', '//input[@id="agreement"]')
+    form_reg_btn = ('xpath', '//button[@id="registerButton"]')
+
+
 class AuthPage:
     input_user = ('xpath', '//input[@id="user-name"]')
     input_pass = ('xpath', '//input[@id="password"]')
@@ -47,6 +56,7 @@ class CartPage:
     cart_header = ('xpath', '//div[@class="subheader"]')
     cart_btn = ('xpath', '//a[@class="shopping_cart_link fa-layers fa-fw"]')
     cart_tag = ('xpath', '//a[@class="shopping_cart_link fa-layers fa-fw"]/span')
+    cart_quantity_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
     cart_remove_btn = ('xpath', '//button[@class="btn_secondary cart_button"]')
 
 

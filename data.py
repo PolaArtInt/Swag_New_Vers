@@ -7,10 +7,12 @@ class Auth:
     pass_word = 'secret_sauce'
 
 
-class PostAuth:
+class TestAuth:
+    fake_username = 'John Doe'
     fake_user_fname = 'Jane'
     fake_user_lname = 'Smith'
     fake_zip = '123456'
+    fake_pass = '@pass12345*!'
 
 
 class URLs:
