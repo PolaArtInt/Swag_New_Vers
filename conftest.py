@@ -27,19 +27,24 @@ def browser():
 
 @pytest.fixture()
 def form_conditions(browser):
-    # pre:
     browser.get(FormData.form_url)
     assert browser.current_url == FormData.form_url and \
            FormData.form_header == 'Register'
 
     name_field = browser.find_element(*FormData.form_name)
     pass_field = browser.find_element(*FormData.form_pass)
-    assert name_field.text == '' and pass_field.text == '', 'Inputs are not blank'
+    checkbox = browser.find_element(*FormData.form_check)
 
-    # test:
+    if checkbox.is_selected() or name_field.text != '' or pass_field.text != '':
+        checkbox.click()
+        name_field.clear()
+        pass_field.clear()
+
+    assert name_field.text == '', 'Input Email is filled'
+    assert pass_field.text == '', 'Input Password is filled'
+    assert not checkbox.is_selected(), 'Checkbox is selected'
+
     yield form_conditions
-
-    # post:
     browser.get(FormData.form_url)
 
 
