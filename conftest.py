@@ -14,8 +14,8 @@ def browser():
 
     # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--ignore-certificate-errors")
-    chrome_options.add_argument("--window-size=1280,800")
-    # chrome_options.add_argument("--disable-cache")
+    chrome_options.add_argument("--window-size=1280,1000")
+    chrome_options.add_argument("--incognito")
 
     service = Service(ChromeDriverManager().install())
     browser = webdriver.Chrome(options=chrome_options, service=service)
