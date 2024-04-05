@@ -1,7 +1,7 @@
 ### test-case: 7.1  
 ## Отображение картинок  
 Проверка наличия изображений в каталоге  
-#### Test:  
+#### Test: DEFECT FOUND  
 test_7_problem_user.py::  
 test_problem_user_negative_inventory_imgs  
 #### Предусловие:  

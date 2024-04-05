@@ -7,10 +7,10 @@ from data import *
 # case 2.1
 def test_add_to_cart(browser, standard_auth):
     # pick item text:
-    item_title = browser.find_element('xpath', '(//div[@class="inventory_item_name"])[3]').text
+    item_title = browser.find_elements(*InventoryPage.item_names)[3].text
 
     # add item to cart:
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[3]').click()
+    browser.find_elements(*InventoryPage.add_btns)[3].click()
 
     # check if cart quantity tag is equal to 1 now:
     tag = browser.find_element(*CartPage.cart_tag).text
@@ -20,7 +20,7 @@ def test_add_to_cart(browser, standard_auth):
     browser.find_element(*CartPage.cart_btn).click()
 
     # check if item picked is the same item in cart:
-    cart_item_title = browser.find_element('xpath', '//div[@class="inventory_item_name"]').text
+    cart_item_title = browser.find_element(*CartPage.cart_item_name).text
     assert item_title == cart_item_title, 'Different item picked'
 
     # remove item from cart:
@@ -34,13 +34,13 @@ def test_add_to_cart(browser, standard_auth):
 # case 2.2
 def test_remove_from_cart(browser, standard_auth):
     # pick 3 items and add to cart:
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[2]').click()
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[4]').click()
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[1]').click()
+    browser.find_elements(*InventoryPage.add_btns)[5].click()
+    browser.find_elements(*InventoryPage.add_btns)[1].click()
+    browser.find_elements(*InventoryPage.add_btns)[3].click()
 
     # check if cart quantity tag is more than zero:
     tag = browser.find_element(*CartPage.cart_tag).text
-    assert tag != 0
+    assert int(tag) > 0
 
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
@@ -57,24 +57,22 @@ def test_remove_from_cart(browser, standard_auth):
 @pytest.mark.positive
 # case 2.3
 def test_add_item_from_item_card(browser, standard_auth):
-    # pick item title:
-    item_title = browser.find_element('xpath', '(//div[@class="inventory_item_name"])[3]').text
-
-    # find item link and click it:
-    browser.find_element('xpath', '(//div[@class="inventory_item_name"])[3]').click()
+    # pick item title click it and go to item card:
+    item_title = browser.find_elements(*InventoryPage.item_names)[3].text
+    browser.find_elements(*InventoryPage.item_names)[3].click()
 
     # check if item title is the same item title:
-    card_item_title = browser.find_element('xpath', '//div[@class="inventory_details_name"]').text
+    card_item_title = browser.find_element(*ItemPage.card_name).text
     assert item_title == card_item_title, 'Wrong item'
 
-    # add to cart:
-    browser.find_element('xpath', '//button[@class="btn_primary btn_inventory"]').click()
+    # add item to cart from item page:
+    browser.find_element(*ItemPage.card_add_btn).click()
 
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
 
     # check if item title is the same item title and url is cart url:
-    cart_item_title = browser.find_element('xpath', '//div[@class="inventory_item_name"]').text
+    cart_item_title = browser.find_element(*CartPage.cart_item_name).text
     assert cart_item_title == card_item_title and browser.current_url == URLs.cart_url, 'Wrong url or different item'
 
     # remove item from cart:
@@ -84,19 +82,20 @@ def test_add_item_from_item_card(browser, standard_auth):
 @pytest.mark.positive
 # case 2.4
 def test_remove_item_from_item_card(browser, standard_auth):
-    # pick item text:
-    item_title = browser.find_element('xpath', '(//div[@class="inventory_item_name"])[2]').text
+    # pick item text and add item to cart:
+    item_title_before = browser.find_elements(*InventoryPage.item_names)[2].text
+    browser.find_elements(*InventoryPage.add_btns)[2].click()
 
-    # add item to cart:
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[2]').click()
-
-    # items quantity in cart:
+    # check items quantity in cart:
     cart_tag_before = browser.find_element(*CartPage.cart_tag).text
     assert cart_tag_before == '1', 'Wrong quantity of items'
 
     # go to item card:
-    browser.find_element('xpath', '(//div[@class="inventory_item_name"])[2]').click()
-    assert item_title == 'Sauce Labs Bike Light', 'Wrong item title'
+    browser.find_elements(*InventoryPage.item_names)[2].click()
+
+    # check item title in card:
+    item_title_after = browser.find_element(*ItemPage.card_name).text
+    assert item_title_before == item_title_after, 'Wrong item title'
 
     # click remove button:
     browser.find_element(*ItemPage.card_remove_btn).click()
@@ -104,3 +103,6 @@ def test_remove_item_from_item_card(browser, standard_auth):
     # check the button changed:
     btn_txt = browser.find_element(*ItemPage.card_add_btn).text
     assert btn_txt == 'ADD TO CART', 'Button didn\'t change'
+
+    # check if cart is empty:
+    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'

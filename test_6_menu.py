@@ -38,8 +38,12 @@ def test_positive_about_btn(browser, standard_auth):
 # case 6.3
 def test_reset_app_state_positive(browser, standard_auth):
     # add two items to cart:
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[4]').click()
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[5]').click()
+    browser.find_elements(*InventoryPage.add_btns)[4].click()
+    browser.find_elements(*InventoryPage.add_btns)[4].click()
+
+    # check if cart quantity tag is 2:
+    tag = browser.find_element(*CartPage.cart_tag).text
+    assert int(tag) == 2
 
     # find and click burger menu:
     browser.find_element(*Menu.menu_btn).click()
@@ -53,17 +57,17 @@ def test_reset_app_state_positive(browser, standard_auth):
     browser.refresh()
 
 
+@pytest.mark.defect
 @pytest.mark.xfail
 @pytest.mark.negative
 # case 6.4
 def test_reset_app_state_negative(browser, standard_auth):
     # check 'add to cart' buttons quantity before:
-    add_btns_before = browser.find_elements('xpath', InventoryPage.add_btns)
-    print(f'\n{len(add_btns_before)}')
+    add_btns_before = browser.find_elements(*InventoryPage.add_btns)
 
     # add two items to cart:
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[2]').click()
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[1]').click()
+    browser.find_elements(*InventoryPage.add_btns)[0].click()
+    browser.find_elements(*InventoryPage.add_btns)[1].click()
 
     # find and click burger menu:
     browser.find_element(*Menu.menu_btn).click()
@@ -75,8 +79,7 @@ def test_reset_app_state_negative(browser, standard_auth):
     assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
     # check all 'add to cart' buttons are unpressed by its quantity before and after:
-    add_btns_after = browser.find_elements('xpath', InventoryPage.add_btns)
-    print(f'\n{len(add_btns_after)}')
+    add_btns_after = browser.find_elements(*InventoryPage.add_btns)
     assert len(add_btns_before) != len(add_btns_after), 'Buttons are not unpressed after reset the app'
 
     browser.refresh()

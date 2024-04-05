@@ -28,18 +28,19 @@ class Menu:
 class InventoryPage:
     prod_header = ('xpath', '//div[@class="product_label"]')
 
+    item_cards = ('xpath', '//div[@class="inventory_item"]')
+    item_imgs = ('xpath', '//img[@class="inventory_item_img"]')
+    item_names = ('xpath', '//div[@class="inventory_item_name"]')
+    item_descs = ('xpath', '//div[@class="inventory_item_desc"]')
+    item_prices = ('xpath', '//div[@class="inventory_item_price"]')
+
+    add_btns = ('xpath', '//button[@class="btn_primary btn_inventory"]')
+    remove_btns = ('xpath', '//button[@class="btn_secondary btn_inventory"]')
+
     drop_a_z = ('xpath', '//option[@value="az"]')
     drop_z_a = ('xpath', '//option[@value="za"]')
     drop_low_high = ('xpath', '//option[@value="lohi"]')
     drop_high_low = ('xpath', '//option[@value="hilo"]')
-
-    item_imgs = '//img[@class="inventory_item_img"]'
-    item_names = '//div[@class="inventory_item_name"]'
-    item_descs = '//div[@class="inventory_item_desc"]'
-    item_prices = '//div[@class="inventory_item_price"]'
-
-    add_btns = '//button[@class="btn_primary btn_inventory"]'
-    remove_btns = '//button[@class="btn_secondary btn_inventory"]'
 
 
 class ItemPage:
@@ -53,10 +54,18 @@ class ItemPage:
 
 
 class CartPage:
+    # cart icon:
     cart_header = ('xpath', '//div[@class="subheader"]')
     cart_btn = ('xpath', '//a[@class="shopping_cart_link fa-layers fa-fw"]')
     cart_tag = ('xpath', '//a[@class="shopping_cart_link fa-layers fa-fw"]/span')
     cart_quantity_tag = '//a[@class="shopping_cart_link fa-layers fa-fw"]/span'
+
+    # item details:
+    cart = ('xpath', '//div[@id="cart_contents_container"]')
+    cart_item_name = ('xpath', '//div[@class="inventory_item_name"]')
+    cart_item_desc = ('xpath', '//div[@class="inventory_item_desc"]')
+    cart_price = ('xpath', '//div[@class="inventory_item_price"]')
+    cart_quantity_num = ('xpath', '//div[@class="cart_quantity"]')
     cart_remove_btn = ('xpath', '//button[@class="btn_secondary cart_button"]')
 
 

@@ -31,6 +31,7 @@ def test_positive_fill_form_fields(browser, form_conditions):
     assert browser.current_url != FormData.form_url, 'Url is not changed'
 
 
+@pytest.mark.defect
 @pytest.mark.xfail
 @pytest.mark.negative
 # case 0.3

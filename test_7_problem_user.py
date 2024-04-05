@@ -4,10 +4,11 @@ from data import *
 from locators import *
 
 
+@pytest.mark.defect
 @pytest.mark.xfail
 @pytest.mark.negative
 def test_auth_positive_problem_user(browser, problem_auth):
-    imgs = browser.find_elements('xpath', InventoryPage.item_imgs)
+    imgs = browser.find_elements(*InventoryPage.item_imgs)
     broken_url_sample = 'WithGarbageOnItToBreakTheUrl'
 
     for img in imgs:

@@ -12,8 +12,12 @@ def test_standart_login(browser):
     browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
     browser.find_element(*AuthPage.login_btn).click()
 
+    inventory_header = browser.find_element(*InventoryPage.prod_header).text
+    inventory_cards = browser.find_elements(*InventoryPage.item_cards)
+
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
-    assert InventoryPage.prod_header, 'Wrong page header'
+    assert inventory_header == 'Products', 'Wrong page header'
+    assert len(inventory_cards) > 0, 'Product cards are not visible'
 
 
 # case 1.2

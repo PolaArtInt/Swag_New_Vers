@@ -6,8 +6,9 @@ from data import *
 @pytest.mark.positive
 # case 4.1
 def test_positive_order(browser, standard_auth):
-    # pick item and add it to cart:
-    browser.find_element('xpath', '(//button[@class="btn_primary btn_inventory"])[1]').click()
+    # pick items and add it to cart:
+    browser.find_elements(*InventoryPage.add_btns)[5].click()
+    browser.find_elements(*InventoryPage.add_btns)[0].click()
 
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
@@ -34,12 +35,16 @@ def test_positive_order(browser, standard_auth):
     assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
 
+@pytest.mark.defect
 @pytest.mark.xfail
 @pytest.mark.negative
 # case 4.2
 def test_negative_empty_order(browser, standard_auth):
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
+
+    # check cart is empty:
+    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
 
     # go to checkout:
     browser.find_element(*CheckoutPage.checkout_btn).click()
