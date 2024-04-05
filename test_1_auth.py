@@ -13,6 +13,7 @@ def test_standart_login(browser, standard_auth):
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
     assert inventory_header == 'Products', 'Wrong page header'
     assert len(inventory_cards) > 0, 'There are no items on the inventory page'
+    print(f'\nStandard user...')
 
 
 # case 1.2
@@ -20,6 +21,7 @@ def test_standart_login(browser, standard_auth):
 def test_auth_positive_locked_out_user(browser, locked_out_auth):
     assert AuthPage.locked_msg, 'Login error'
     assert browser.current_url == URLs.url, 'Wrong url'
+    print(f'\nLocked out user...')
 
 
 # case 1.3
@@ -27,6 +29,7 @@ def test_auth_positive_locked_out_user(browser, locked_out_auth):
 def test_auth_positive_problem_user(browser, problem_auth):
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
     assert InventoryPage.prod_header, 'Wrong page header'
+    print(f'\nProblem user...')
 
 
 # case 1.4
@@ -34,6 +37,7 @@ def test_auth_positive_problem_user(browser, problem_auth):
 def test_auth_positive_performance_glitch_user(browser, glitch_auth):
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
     assert InventoryPage.prod_header, 'Wrong page header'
+    print(f'\nPerfomance glitch user...')
 
 
 # case 1.5
