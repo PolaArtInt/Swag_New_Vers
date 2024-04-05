@@ -1,5 +1,5 @@
 import pytest
-from locators import *
+from locators import InventoryPage
 
 
 @pytest.mark.positive

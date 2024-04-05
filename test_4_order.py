@@ -1,6 +1,6 @@
 import pytest
-from locators import *
-from data import *
+from data import TestAuth, URLs
+from locators import InventoryPage, CartPage, CheckoutPage
 
 
 @pytest.mark.positive
@@ -32,7 +32,8 @@ def test_positive_order(browser, standard_auth):
     assert curr_url == URLs.checkout_url and CheckoutPage.complete_msg, 'Wrong url'
 
     # check if cart is empty:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 0, 'Cart is not empty'
 
 
 @pytest.mark.defect
@@ -43,8 +44,9 @@ def test_negative_empty_order(browser, standard_auth):
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
 
-    # check cart is empty:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    # check if cart is empty:
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 0, 'Cart is not empty'
 
     # go to checkout:
     browser.find_element(*CheckoutPage.checkout_btn).click()

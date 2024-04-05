@@ -1,6 +1,6 @@
 import pytest
-from locators import *
-from data import *
+from data import URLs
+from locators import InventoryPage, ItemPage
 
 
 @pytest.mark.positive

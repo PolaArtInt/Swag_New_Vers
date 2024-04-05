@@ -2,8 +2,8 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import pytest
-from data import *
-from locators import *
+from locators import FormData, AuthPage
+from data import URLs, Auth
 
 
 # driver init:
@@ -12,7 +12,7 @@ def browser():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.page_load_strategy = 'normal'
 
-    chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--window-size=1280,1000")
     chrome_options.add_argument("--incognito")
@@ -45,7 +45,7 @@ def form_conditions(browser):
     assert not checkbox.is_selected(), 'Checkbox is selected'
 
     yield form_conditions
-    browser.get(FormData.form_url)
+    # browser.get(FormData.form_url)
 
 
 @pytest.fixture()
@@ -54,6 +54,7 @@ def standard_auth(browser):
     browser.find_element(*AuthPage.input_user).send_keys(Auth.user)
     browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
     browser.find_element(*AuthPage.login_btn).click()
+    print(f'\nStandard user...')
 
 
 @pytest.fixture()
@@ -62,6 +63,7 @@ def problem_auth(browser):
     browser.find_element(*AuthPage.input_user).send_keys(Auth.problem_user)
     browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
     browser.find_element(*AuthPage.login_btn).click()
+    print(f'\nLocked out user...')
 
 
 @pytest.fixture()
@@ -70,6 +72,7 @@ def locked_out_auth(browser):
     browser.find_element(*AuthPage.input_user).send_keys(Auth.locked_user)
     browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
     browser.find_element(*AuthPage.login_btn).click()
+    print(f'\nProblem user...')
 
 
 @pytest.fixture()
@@ -78,4 +81,4 @@ def glitch_auth(browser):
     browser.find_element(*AuthPage.input_user).send_keys(Auth.glitch_user)
     browser.find_element(*AuthPage.input_pass).send_keys(Auth.pass_word)
     browser.find_element(*AuthPage.login_btn).click()
-
+    print(f'\nPerfomance glitch user...')

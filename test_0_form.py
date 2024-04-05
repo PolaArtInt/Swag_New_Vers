@@ -1,8 +1,7 @@
 import time
-
 import pytest
-from locators import *
-from data import *
+from data import TestAuth
+from locators import FormData
 
 
 # case 0.1

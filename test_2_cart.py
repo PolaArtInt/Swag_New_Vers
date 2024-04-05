@@ -1,6 +1,6 @@
 import pytest
-from locators import *
-from data import *
+from data import URLs
+from locators import InventoryPage, CartPage, ItemPage
 
 
 @pytest.mark.positive
@@ -20,14 +20,15 @@ def test_add_to_cart(browser, standard_auth):
     browser.find_element(*CartPage.cart_btn).click()
 
     # check if item picked is the same item in cart:
-    cart_item_title = browser.find_element(*CartPage.cart_item_name).text
+    cart_item_title = browser.find_element(*InventoryPage.item_names).text
     assert item_title == cart_item_title, 'Different item picked'
 
     # remove item from cart:
     browser.find_element(*CartPage.cart_remove_btn).click()
 
     # check if cart is empty:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 0, 'Cart is not empty'
 
 
 @pytest.mark.positive
@@ -38,20 +39,24 @@ def test_remove_from_cart(browser, standard_auth):
     browser.find_elements(*InventoryPage.add_btns)[1].click()
     browser.find_elements(*InventoryPage.add_btns)[3].click()
 
-    # check if cart quantity tag is more than zero:
+    # check if cart quantity tag is equal to 3:
     tag = browser.find_element(*CartPage.cart_tag).text
-    assert int(tag) > 0
+    assert int(tag) == 3, 'Cart is empty'
 
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
+
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 3, 'Cart is empty'
 
     # remove all items from cart:
     cart_remove_btns = browser.find_elements(*CartPage.cart_remove_btn)
     for btn in cart_remove_btns:
         btn.click()
 
-    # check if cart quantity tag is missing on page:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    # check if cart is empty:
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 0, 'Cart is not empty'
 
 
 @pytest.mark.positive
@@ -72,7 +77,7 @@ def test_add_item_from_item_card(browser, standard_auth):
     browser.find_element(*CartPage.cart_btn).click()
 
     # check if item title is the same item title and url is cart url:
-    cart_item_title = browser.find_element(*CartPage.cart_item_name).text
+    cart_item_title = browser.find_element(*InventoryPage.item_names).text
     assert cart_item_title == card_item_title and browser.current_url == URLs.cart_url, 'Wrong url or different item'
 
     # remove item from cart:
@@ -87,8 +92,8 @@ def test_remove_item_from_item_card(browser, standard_auth):
     browser.find_elements(*InventoryPage.add_btns)[2].click()
 
     # check items quantity in cart:
-    cart_tag_before = browser.find_element(*CartPage.cart_tag).text
-    assert cart_tag_before == '1', 'Wrong quantity of items'
+    cart_tag = browser.find_element(*CartPage.cart_tag).text
+    assert cart_tag == '1', 'Wrong quantity of items'
 
     # go to item card:
     browser.find_elements(*InventoryPage.item_names)[2].click()
@@ -105,4 +110,5 @@ def test_remove_item_from_item_card(browser, standard_auth):
     assert btn_txt == 'ADD TO CART', 'Button didn\'t change'
 
     # check if cart is empty:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 0, 'Cart is not empty'

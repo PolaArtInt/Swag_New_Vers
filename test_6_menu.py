@@ -1,6 +1,6 @@
 import pytest
-from data import *
-from locators import *
+from data import URLs
+from locators import Menu, AuthPage, AboutPage, InventoryPage, CartPage
 
 
 @pytest.mark.positive
@@ -52,7 +52,8 @@ def test_reset_app_state_positive(browser, standard_auth):
     browser.find_element(*Menu.reset_btn).click()
 
     # check if cart is empty:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    items_in_cart = browser.find_elements(*CartPage.cart_tag)
+    assert len(items_in_cart) == 0, 'Cart is not empty'
 
     browser.refresh()
 
@@ -76,7 +77,8 @@ def test_reset_app_state_negative(browser, standard_auth):
     browser.find_element(*Menu.reset_btn).click()
 
     # check if cart is empty:
-    assert CartPage.cart_quantity_tag not in browser.page_source, 'Shopping cart is not empty'
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(items_in_cart) == 0, 'Cart is not empty'
 
     # check all 'add to cart' buttons are unpressed by its quantity before and after:
     add_btns_after = browser.find_elements(*InventoryPage.add_btns)

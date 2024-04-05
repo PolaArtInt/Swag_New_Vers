@@ -3,7 +3,6 @@ class Auth:
     locked_user = 'locked_out_user'
     problem_user = 'problem_user'
     glitch_user = 'performance_glitch_user'
-
     pass_word = 'secret_sauce'
 
 
@@ -13,6 +12,9 @@ class TestAuth:
     fake_user_lname = 'Smith'
     fake_zip = '123456'
     fake_pass = '@pass12345*!'
+
+    wrong_user = 'user'
+    wrong_password = 'user'
 
 
 class URLs:
