@@ -1,6 +1,7 @@
+import time
 import pytest
 from selenium.webdriver.support import expected_conditions as ex
-from data import TestAuth, URLs
+from data import URLs, fake_it
 from locators import InventoryPage, CartPage, CheckoutPage
 
 
@@ -21,9 +22,9 @@ def test_positive_order(browser, exp_wait, standard_auth):
     browser.find_element(*CheckoutPage.checkout_btn).click()
 
     # fill a form:
-    browser.find_element(*CheckoutPage.input_fname).send_keys(TestAuth.fake_user_fname)
-    browser.find_element(*CheckoutPage.input_lname).send_keys(TestAuth.fake_user_lname)
-    browser.find_element(*CheckoutPage.input_zipcode).send_keys(TestAuth.fake_zip)
+    browser.find_element(*CheckoutPage.input_fname).send_keys(fake_it().first_name())
+    browser.find_element(*CheckoutPage.input_lname).send_keys(fake_it().last_name())
+    browser.find_element(*CheckoutPage.input_zipcode).send_keys(fake_it().zipcode())
 
     # click 'continue' button:
     browser.find_element(*CheckoutPage.continue_btn).click()
@@ -60,9 +61,10 @@ def test_negative_empty_order(browser, imp_wait, standard_auth):
     browser.find_element(*CheckoutPage.checkout_btn).click()
 
     # fill a form:
-    browser.find_element(*CheckoutPage.input_fname).send_keys(TestAuth.fake_user_fname)
-    browser.find_element(*CheckoutPage.input_lname).send_keys(TestAuth.fake_user_lname)
-    browser.find_element(*CheckoutPage.input_zipcode).send_keys(TestAuth.fake_zip)
+    browser.find_element(*CheckoutPage.input_fname).send_keys(fake_it().first_name())
+    browser.find_element(*CheckoutPage.input_lname).send_keys(fake_it().last_name())
+    browser.find_element(*CheckoutPage.input_zipcode).send_keys(fake_it().zipcode())
+    time.sleep(3)
 
     # click 'continue' button:
     browser.find_element(*CheckoutPage.continue_btn).click()

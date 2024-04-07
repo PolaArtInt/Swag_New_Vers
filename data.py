@@ -1,3 +1,9 @@
+def fake_it():
+    from faker import Faker
+    fake = Faker()
+    return fake
+
+
 class Auth:
     user = 'standard_user'
     locked_user = 'locked_out_user'
@@ -7,12 +13,6 @@ class Auth:
 
 
 class TestAuth:
-    fake_username = 'John Doe'
-    fake_user_fname = 'Jane'
-    fake_user_lname = 'Smith'
-    fake_zip = '123456'
-    fake_pass = '@pass12345*!'
-
     wrong_user = 'user'
     wrong_password = 'user'
 
