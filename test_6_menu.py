@@ -6,15 +6,20 @@ from locators import Menu, AuthPage, AboutPage, InventoryPage, CartPage
 
 @pytest.mark.positive
 # case 6.1
-def test_positive_logout(browser, imp_wait, standard_auth):
+def test_positive_logout(browser, exp_wait, standard_auth):
     # find and click burger menu:
     browser.find_element(*Menu.menu_btn).click()
 
     # find and click 'logout' button:
-    browser.find_element(*Menu.logout_btn).click()
+    logout_btn = browser.find_element(*Menu.logout_btn)
+    exp_wait.until(ex.element_to_be_clickable(Menu.logout_btn))
+    logout_btn.click()
 
     # check if we are on login page and 'Login' button appears:
     assert browser.current_url == URLs.login_url, 'Wrong url'
+
+    # log_btn_clickable = exp_wait.until(ex.element_to_be_clickable(AuthPage.login_btn))
+    # assert log_btn_clickable, 'Login button not clickable'
 
     log_btn_text = browser.find_element(*AuthPage.login_btn).get_attribute('value')
     assert log_btn_text == 'LOGIN', 'Login button not found'
@@ -42,12 +47,9 @@ def test_reset_app_state_positive(browser, exp_wait, standard_auth):
     browser.find_elements(*InventoryPage.add_btns)[4].click()
     browser.find_elements(*InventoryPage.add_btns)[4].click()
 
-    tag = browser.find_element(*CartPage.cart_tag)
-    assert int(tag.text) == 2, 'Wrong items quantity in cart'
-
     # check if cart quantity tag is 2:
-    tag = browser.find_element(*CartPage.cart_tag).text
-    assert int(tag) == 2
+    tag = browser.find_element(*CartPage.cart_tag)
+    assert int(tag.text) == 2
 
     # find and click burger menu:
     browser.find_element(*Menu.menu_btn).click()
@@ -86,17 +88,19 @@ def test_reset_app_state_negative(browser, exp_wait, standard_auth):
     browser.find_element(*Menu.menu_btn).click()
 
     # find and click 'reset app state' button:
-    browser.find_element(*Menu.reset_btn).click()
+    reset_btn = browser.find_element(*Menu.reset_btn)
+    exp_wait.until(ex.element_to_be_clickable(Menu.reset_btn))
+    reset_btn.click()
 
     # check if cart is empty:
-    items_in_cart = browser.find_elements(*InventoryPage.item_names)
-    assert len(items_in_cart) == 0, 'Cart is not empty'
-
     tag_invisibility = exp_wait.until(ex.invisibility_of_element_located(CartPage.cart_tag))
     assert tag_invisibility, 'Tag is visible, cart is not empty'
 
-    # check all 'add to cart' buttons are unpressed by its quantity before and after:
+    # check if all 'add to cart' buttons are unpressed by its quantity before and after
+    # and check if some items are in cart:
     add_btns_after = browser.find_elements(*InventoryPage.add_btns)
-    assert len(add_btns_before) != len(add_btns_after), 'Buttons are not unpressed after reset the app'
+    items_in_cart = browser.find_elements(*InventoryPage.item_names)
+    assert len(add_btns_before) == len(add_btns_after) and len(items_in_cart) == 0, \
+        'Buttons are not unpressed after reset the app and there are items in cart'
 
     browser.refresh()
