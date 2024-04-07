@@ -1,13 +1,13 @@
 import time
 import pytest
-from selenium.webdriver.support import expected_conditions as ex
+from selenium.webdriver.support import expected_conditions as ec
 from data import URLs, fake_it
 from locators import InventoryPage, CartPage, CheckoutPage
 
 
 @pytest.mark.positive
 # case 4.1
-def test_positive_order(browser, exp_wait, standard_auth):
+def test_positive_order(browser, wait, standard_auth):
     # pick items and add it to cart:
     browser.find_elements(*InventoryPage.add_btns)[5].click()
     browser.find_elements(*InventoryPage.add_btns)[0].click()
@@ -40,8 +40,8 @@ def test_positive_order(browser, exp_wait, standard_auth):
     items_in_cart = browser.find_elements(*InventoryPage.item_names)
     assert len(items_in_cart) == 0, 'Cart is not empty'
 
-    tag_invisibility = exp_wait.until(ex.invisibility_of_element_located(CartPage.cart_tag))
-    # tag_invisibility = exp_wait.until(ex.invisibility_of_element(tag))
+    tag_invisibility = wait.until(ec.invisibility_of_element_located(CartPage.cart_tag))
+    # tag_invisibility = wait.until(ec.invisibility_of_element(tag))
     assert tag_invisibility, 'Tag is visible, cart is not empty'
 
 

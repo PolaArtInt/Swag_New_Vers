@@ -1,5 +1,5 @@
 import pytest
-from selenium.webdriver.support import expected_conditions as ex
+from selenium.webdriver.support import expected_conditions as ec
 from data import URLs
 from locators import InventoryPage, CartPage, ItemPage
 
@@ -34,7 +34,7 @@ def test_add_to_cart(browser, imp_wait, standard_auth):
 
 @pytest.mark.positive
 # case 2.2
-def test_remove_from_cart(browser, exp_wait, standard_auth):
+def test_remove_from_cart(browser, wait, standard_auth):
     # pick 3 items and add to cart:
     browser.find_elements(*InventoryPage.add_btns)[5].click()
     browser.find_elements(*InventoryPage.add_btns)[1].click()
@@ -59,8 +59,8 @@ def test_remove_from_cart(browser, exp_wait, standard_auth):
     items_in_cart = browser.find_elements(*InventoryPage.item_names)
     assert len(items_in_cart) == 0, 'Cart is not empty'
 
-    tag_invisibility = exp_wait.until(ex.invisibility_of_element_located(CartPage.cart_tag))
-    # tag_invisibility = exp_wait.until(ex.invisibility_of_element(tag))
+    tag_invisibility = wait.until(ec.invisibility_of_element_located(CartPage.cart_tag))
+    # tag_invisibility = wait.until(ec.invisibility_of_element(tag))
     assert tag_invisibility, 'Tag is visible, cart is not empty'
 
 
@@ -91,7 +91,7 @@ def test_add_item_from_item_card(browser, imp_wait, standard_auth):
 
 @pytest.mark.positive
 # case 2.4
-def test_remove_item_from_item_card(browser, exp_wait, standard_auth):
+def test_remove_item_from_item_card(browser, wait, standard_auth):
     # pick item text and add item to cart:
     item_title_before = browser.find_elements(*InventoryPage.item_names)[2].text
     browser.find_elements(*InventoryPage.add_btns)[2].click()
@@ -118,6 +118,6 @@ def test_remove_item_from_item_card(browser, exp_wait, standard_auth):
     items_in_cart = browser.find_elements(*InventoryPage.item_names)
     assert len(items_in_cart) == 0, 'Cart is not empty'
 
-    tag_invisibility = exp_wait.until(ex.invisibility_of_element_located(CartPage.cart_tag))
-    # tag_invisibility = exp_wait.until(ex.invisibility_of_element(tag))
+    tag_invisibility = wait.until(ec.invisibility_of_element_located(CartPage.cart_tag))
+    # tag_invisibility = wait.until(ec.invisibility_of_element(tag))
     assert tag_invisibility, 'Tag is visible, cart is not empty'

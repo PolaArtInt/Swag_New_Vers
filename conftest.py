@@ -1,7 +1,6 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as ex
 from selenium.webdriver.chrome.service import Service
 import pytest
 from locators import FormData, AuthPage
@@ -36,7 +35,7 @@ def imp_wait(browser):
 
 
 @pytest.fixture()
-def exp_wait(browser):
+def wait(browser):
     wait = WebDriverWait(browser, timeout=10)
     return wait
 
