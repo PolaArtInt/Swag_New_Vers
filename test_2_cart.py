@@ -15,7 +15,7 @@ def test_add_to_cart(browser, imp_wait, standard_auth):
 
     # check if cart quantity tag is equal to 1 now:
     tag = browser.find_element(*CartPage.cart_tag).text
-    assert tag == '1'
+    assert int(tag) == 1, 'Wrong items quantity in cart'
 
     # go to cart:
     browser.find_element(*CartPage.cart_btn).click()
@@ -112,7 +112,7 @@ def test_remove_item_from_item_card(browser, exp_wait, standard_auth):
 
     # check the button changed:
     btn_txt = browser.find_element(*ItemPage.card_add_btn).text
-    assert btn_txt == 'ADD TO CART', 'Button didn\'t change'
+    assert btn_txt == 'ADD TO CART', 'Button is not changed'
 
     # check if cart is empty:
     items_in_cart = browser.find_elements(*InventoryPage.item_names)

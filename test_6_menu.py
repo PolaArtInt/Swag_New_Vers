@@ -12,14 +12,13 @@ def test_positive_logout(browser, exp_wait, standard_auth):
 
     # find and click 'logout' button:
     logout_btn = browser.find_element(*Menu.logout_btn)
-    exp_wait.until(ex.element_to_be_clickable(Menu.logout_btn))
-    logout_btn.click()
+    exp_wait.until(ex.element_to_be_clickable(logout_btn)).click()
 
     # check if we are on login page and 'Login' button appears:
     assert browser.current_url == URLs.login_url, 'Wrong url'
 
-    # log_btn_clickable = exp_wait.until(ex.element_to_be_clickable(AuthPage.login_btn))
-    # assert log_btn_clickable, 'Login button not clickable'
+    log_btn_clickable = exp_wait.until(ex.element_to_be_clickable(AuthPage.login_btn))
+    assert log_btn_clickable, 'Login button not appearing'
 
     log_btn_text = browser.find_element(*AuthPage.login_btn).get_attribute('value')
     assert log_btn_text == 'LOGIN', 'Login button not found'
@@ -49,15 +48,14 @@ def test_reset_app_state_positive(browser, exp_wait, standard_auth):
 
     # check if cart quantity tag is 2:
     tag = browser.find_element(*CartPage.cart_tag)
-    assert int(tag.text) == 2
+    assert int(tag.text) == 2, 'Wrong items quantity in cart'
 
     # find and click burger menu:
     browser.find_element(*Menu.menu_btn).click()
 
     # find and click 'reset app state' button:
     reset_btn = browser.find_element(*Menu.reset_btn)
-    exp_wait.until(ex.visibility_of(reset_btn))
-    reset_btn.click()
+    exp_wait.until(ex.visibility_of(reset_btn)).click()
 
     # check if cart is empty:
     items_in_cart = browser.find_elements(*CartPage.cart_tag)
@@ -89,8 +87,7 @@ def test_reset_app_state_negative(browser, exp_wait, standard_auth):
 
     # find and click 'reset app state' button:
     reset_btn = browser.find_element(*Menu.reset_btn)
-    exp_wait.until(ex.element_to_be_clickable(Menu.reset_btn))
-    reset_btn.click()
+    exp_wait.until(ex.element_to_be_clickable(reset_btn)).click()
 
     # check if cart is empty:
     tag_invisibility = exp_wait.until(ex.invisibility_of_element_located(CartPage.cart_tag))

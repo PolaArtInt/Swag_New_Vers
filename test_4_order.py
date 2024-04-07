@@ -34,7 +34,7 @@ def test_positive_order(browser, exp_wait, standard_auth):
 
     # check url and success message:
     curr_url = browser.current_url
-    assert curr_url == URLs.checkout_url and CheckoutPage.complete_msg, 'Wrong url'
+    assert curr_url == URLs.checkout_url and CheckoutPage.complete_msg, 'Wrong url, success message not provided'
 
     # check if cart is empty:
     items_in_cart = browser.find_elements(*InventoryPage.item_names)

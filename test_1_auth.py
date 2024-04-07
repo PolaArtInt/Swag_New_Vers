@@ -12,7 +12,7 @@ def test_standart_login(browser, imp_wait, standard_auth):
 
     assert browser.current_url == URLs.inventory_url, 'Wrong url'
     assert inventory_header == 'Products', 'Wrong page header'
-    assert len(inventory_cards) > 0, 'There are no items on the inventory page'
+    assert len(inventory_cards) > 0, 'There are no item cards on the inventory page'
     print(f'\nStandard user...')
 
 
