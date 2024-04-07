@@ -4,7 +4,7 @@ from locators import InventoryPage
 
 @pytest.mark.positive
 # case 5.1
-def test_a_to_z_filter(browser, standard_auth):
+def test_a_to_z_filter(browser, imp_wait, standard_auth):
     # sort items a-z before clicking on a-z filter:
     items_before_a_z = browser.find_elements(*InventoryPage.item_names)
     before_a_z = []
@@ -31,7 +31,7 @@ def test_a_to_z_filter(browser, standard_auth):
 
 @pytest.mark.positive
 # case 5.2
-def test_z_to_a_filter(browser, standard_auth):
+def test_z_to_a_filter(browser, imp_wait, standard_auth):
     # sort items z-a before clicking on a-z filter:
     items_before_z_a = browser.find_elements(*InventoryPage.item_names)
     before_z_a = []
@@ -58,7 +58,7 @@ def test_z_to_a_filter(browser, standard_auth):
 
 @pytest.mark.positive
 # case 5.3
-def test_low_to_high_filter(browser, standard_auth):
+def test_low_to_high_filter(browser, imp_wait, standard_auth):
     # sort items low-high before clicking on low-high filter:
     prices_before_lo_hi = browser.find_elements(*InventoryPage.item_prices)
     before_lo_hi = []
@@ -85,7 +85,7 @@ def test_low_to_high_filter(browser, standard_auth):
 
 @pytest.mark.positive
 # case 5.4
-def test_high_to_low_filter(browser, standard_auth):
+def test_high_to_low_filter(browser, imp_wait, standard_auth):
     # sort items high-low before clicking on low-high filter:
     prices_before_hi_lo = browser.find_elements(*InventoryPage.item_prices)
     before_hi_lo = []

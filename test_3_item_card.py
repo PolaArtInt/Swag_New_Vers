@@ -5,7 +5,7 @@ from locators import InventoryPage, ItemPage
 
 @pytest.mark.positive
 # case 3.1
-def test_click_on_item_img(browser, standard_auth):
+def test_click_on_item_img(browser, imp_wait, standard_auth):
     # pick item description:
     item_desc = browser.find_elements(*InventoryPage.item_descs)[2].text
 
@@ -20,7 +20,7 @@ def test_click_on_item_img(browser, standard_auth):
 
 @pytest.mark.positive
 # case 3.2
-def test_click_on_item_title(browser, standard_auth):
+def test_click_on_item_title(browser, imp_wait, standard_auth):
     # pick item description:
     item_desc = browser.find_elements(*InventoryPage.item_descs)[3].text
 

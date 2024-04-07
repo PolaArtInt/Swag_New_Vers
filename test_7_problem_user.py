@@ -6,7 +6,7 @@ from locators import InventoryPage
 @pytest.mark.defect
 @pytest.mark.xfail
 @pytest.mark.negative
-def test_auth_positive_problem_user(browser, problem_auth):
+def test_auth_positive_problem_user(browser, imp_wait, problem_auth):
     imgs = browser.find_elements(*InventoryPage.item_imgs)
     broken_url_sample = 'WithGarbageOnItToBreakTheUrl'
 

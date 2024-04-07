@@ -1,14 +1,15 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as ex
 from selenium.webdriver.chrome.service import Service
 import pytest
 from locators import FormData, AuthPage
 from data import URLs, Auth
 
 
-# driver init:
-@pytest.fixture(scope="function", autouse=True)
-def browser():
+@pytest.fixture
+def options():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.page_load_strategy = 'normal'
 
@@ -16,13 +17,28 @@ def browser():
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--window-size=1280,1000")
     chrome_options.add_argument("--incognito")
+    return chrome_options
 
+
+@pytest.fixture(scope="function", autouse=True)
+def browser(options):
     service = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(options=chrome_options, service=service)
-    browser.implicitly_wait(5)
+    browser = webdriver.Chrome(options=options, service=service)
 
     yield browser
     browser.quit()
+
+
+@pytest.fixture()
+def imp_wait(browser):
+    browser.implicitly_wait(5)
+    return imp_wait
+
+
+@pytest.fixture()
+def exp_wait(browser):
+    wait = WebDriverWait(browser, timeout=10)
+    return wait
 
 
 @pytest.fixture()

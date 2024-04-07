@@ -6,7 +6,7 @@ from locators import FormData
 
 # case 0.1
 @pytest.mark.positive
-def test_register_btn_unblocked(browser, form_conditions):
+def test_register_btn_unblocked(browser, imp_wait, form_conditions):
     browser.find_element(*FormData.form_name).send_keys(TestAuth.fake_user_fname)
     browser.find_element(*FormData.form_pass).send_keys(TestAuth.fake_pass)
 
@@ -20,7 +20,7 @@ def test_register_btn_unblocked(browser, form_conditions):
 
 @pytest.mark.positive
 # case 0.2
-def test_positive_fill_form_fields(browser, form_conditions):
+def test_positive_fill_form_fields(browser, imp_wait, form_conditions):
     browser.find_element(*FormData.form_name).send_keys(TestAuth.fake_user_fname)
     browser.find_element(*FormData.form_pass).send_keys(TestAuth.fake_pass)
 
@@ -34,7 +34,7 @@ def test_positive_fill_form_fields(browser, form_conditions):
 @pytest.mark.xfail
 @pytest.mark.negative
 # case 0.3
-def test_negative_fill_name_with_spaces(browser, form_conditions):
+def test_negative_fill_name_with_spaces(browser, imp_wait, form_conditions):
     browser.find_element(*FormData.form_name).send_keys('  ')
     browser.find_element(*FormData.form_pass).send_keys(TestAuth.fake_pass)
     time.sleep(3)
@@ -47,7 +47,7 @@ def test_negative_fill_name_with_spaces(browser, form_conditions):
 
 @pytest.mark.negative
 # case 0.4
-def test_btn_blocked_with_empty_fields(browser, form_conditions):
+def test_btn_blocked_with_empty_fields(browser, imp_wait, form_conditions):
     browser.find_element(*FormData.form_check).click()
 
     register_btn = browser.find_element(*FormData.form_reg_btn)
