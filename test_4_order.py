@@ -74,4 +74,4 @@ def test_negative_empty_order(browser, imp_wait, standard_auth):
 
     # check url and success message:
     curr_url = browser.current_url
-    assert not curr_url == URLs.checkout_url and not CheckoutPage.complete_msg, 'Shopping cart is empty, wrong checkout'
+    assert curr_url != URLs.checkout_url and not CheckoutPage.complete_msg, 'Shopping cart is empty, wrong checkout'
