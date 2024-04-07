@@ -10,9 +10,6 @@ class Auth:
     problem_user = 'problem_user'
     glitch_user = 'performance_glitch_user'
     pass_word = 'secret_sauce'
-
-
-class TestAuth:
     wrong_user = 'user'
     wrong_password = 'user'
 

@@ -1,5 +1,5 @@
 import pytest
-from data import URLs, TestAuth
+from data import URLs, Auth
 from locators import InventoryPage, AuthPage
 
 
@@ -44,8 +44,8 @@ def test_auth_positive_performance_glitch_user(browser, imp_wait, glitch_auth):
 @pytest.mark.negative
 def test_auth_negative_wrong_login(browser, imp_wait):
     browser.get(URLs.url)
-    browser.find_element(*AuthPage.input_user).send_keys(TestAuth.wrong_user)
-    browser.find_element(*AuthPage.input_pass).send_keys(TestAuth.wrong_password)
+    browser.find_element(*AuthPage.input_user).send_keys(Auth.wrong_user)
+    browser.find_element(*AuthPage.input_pass).send_keys(Auth.wrong_password)
     browser.find_element(*AuthPage.login_btn).click()
 
     assert AuthPage.login_err_msg, 'Wrong login'
